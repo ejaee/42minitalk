@@ -6,7 +6,7 @@
 /*   By: ejachoi <ejachoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 17:05:25 by ejachoi           #+#    #+#             */
-/*   Updated: 2022/12/28 20:44:46 by ejachoi          ###   ########.fr       */
+/*   Updated: 2022/12/29 12:00:40 by ejachoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,17 @@ void	send_client_message(char **argv, int pid)
 	}
 }
 
-
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    int	pid;
+	int	pid;
 
-    if (argc < 3 || argv[2][0] == '\0')
-        exit_error("invalid argc\n");
-    pid = ft_atoi(argv[1]);
-    if (pid < 101 || 99999 < pid)
-        exit_error("invalid server pid\n");
-    show_pid("[client pid] ");
-    send_client_pid(pid);
+	if (argc < 3 || argv[2][0] == '\0')
+		exit_error("invalid argc\n");
+	pid = ft_atoi(argv[1]);
+	if (pid < 101 || 99999 < pid)
+		exit_error("invalid server pid\n");
+	show_pid("[client pid] ");
+	send_client_pid(pid);
 	send_client_message(argv, pid);
 	exit(0);
 }

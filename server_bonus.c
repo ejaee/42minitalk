@@ -6,7 +6,7 @@
 /*   By: ejachoi <ejachoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 20:33:40 by ejachoi           #+#    #+#             */
-/*   Updated: 2022/12/28 20:34:39 by ejachoi          ###   ########.fr       */
+/*   Updated: 2022/12/29 12:02:25 by ejachoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 void	handshake(char *status_message)
 {
 	ft_putstr_fd(GREEN "status :" RESET, STANDARD_OUTPUT);
-	ft_putstr_fd(status_message , STANDARD_OUTPUT);
+	ft_putstr_fd(status_message, STANDARD_OUTPUT);
 }
 
 void	receive_message(char char_buffer)
 {
-	ft_putstr_fd(YELLOW, STANDARD_OUTPUT);
 	ft_putchar_fd(char_buffer, STANDARD_OUTPUT);
-	ft_putstr_fd(RESET, STANDARD_OUTPUT);
 }
 
 void	get_message(int sig_num, struct __siginfo *info, void *vo)
@@ -44,7 +42,7 @@ void	get_message(int sig_num, struct __siginfo *info, void *vo)
 		char_buffer ^= POINT_TO_ONE_BIT >> bit;
 	if (++bit == 8)
 	{
-        if (!char_buffer)
+		if (!char_buffer)
 			kill(pid, SIGUSR2);
 		receive_message(char_buffer);
 		bit = 0;

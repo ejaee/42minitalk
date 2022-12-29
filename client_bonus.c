@@ -6,7 +6,7 @@
 /*   By: ejachoi <ejachoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 20:39:48 by ejachoi           #+#    #+#             */
-/*   Updated: 2022/12/28 20:44:58 by ejachoi          ###   ########.fr       */
+/*   Updated: 2022/12/29 12:01:02 by ejachoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,14 @@ void	set_message(char *message, int pid)
 	shift('\0', pid);
 }
 
-void	send_client_pid(int pid)
-{
-	set_message("\n[client pid] ", pid);
-	set_message(ft_itoa(getpid()), pid);
-	set_message("\n", pid);
-}
-
-void	send_client_message(char **argv, int pid)
+void	send_client(char **argv, int pid)
 {
 	int	i;
 
 	i = 1;
+	set_message("\n[client pid] ", pid);
+	set_message(ft_itoa(getpid()), pid);
+	set_message("\n", pid);
 	while (argv[++i])
 	{
 		set_message(argv[i], pid);
@@ -67,18 +63,17 @@ void	handler(int signum)
 	}
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    int	pid;
+	int	pid;
 
-    if (argc < 3 || argv[2][0] == '\0')
-        exit_error("invalid argc\n");
-    pid = ft_atoi(argv[1]);
-    signal(SIGUSR2, handler);
-    if (pid < 101 || 99999 < pid)
-        exit_error("invalid server pid\n");
-    show_pid("[client pid] ");
-    send_client_pid(pid);
-	send_client_message(argv, pid);
+	if (argc < 3 || argv[2][0] == '\0')
+		exit_error("invalid argc\n");
+	pid = ft_atoi(argv[1]);
+	signal(SIGUSR2, handler);
+	if (pid < 101 || 99999 < pid)
+		exit_error("invalid server pid\n");
+	show_pid("[client pid] ");
+	send_client(argv, pid);
 	exit(0);
 }
